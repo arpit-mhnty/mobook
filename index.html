@@ -7,14 +7,20 @@
 <link rel="stylesheet" type="text/css" href="css.css">
 <body>
 	<div style="font-size: 2vw">
-		 <p2 class="read">About</p2>
-			
-				<div  align="center" class="logos" style="font-size: 2vw">
+		
+				 <p2 class="read"><a href="https://statyox.wordpress.com/about" style="text-decoration:none;">About</a></p2>
+				<div  align="center" class="logos" style="font-size: 1vw">
+				
+					<tr>
 					<h2 id="fg">mobook</h2>
 				     <h2 id="g">mobook</h2>
+				 </tr>
+
+				
+				 </div>
 					
 				
-				</div>
+				
 
 		   
 
@@ -24,26 +30,114 @@
 		<table>
 			<tr>
 				<td><p class="p1">work<p></td>
-				<td><input type="text" name=""placeholder="work">
+				<td><input type="text" name=""placeholder="work" id="title">
 				</td>
 			</tr>
 			<tr>
 				<td><p>description</p></td>
-				<td><textarea placeholder="description"></textarea>></td>
+				<td><textarea placeholder="description" id="description"></textarea></td>
 				
 			</tr>
-			<tr>
-				<td>
-					<input type="submit" name="submit">
-				</td>
-				
-			</tr>
-	
 			
 		</table>
+		<button id="add">add to list</button>
+	</div>
+
+	<div style="font-size: 2vw" class="sdiv">
+		<h4 align="center">this is list </h4>
+		<table>
+			<tr>
+
+				<tr>
+					<thead>
+                    <th scope="col"><p>No.&nbsp</p></th>
+                    <th scope="col"><p>work&nbsp</p></th>
+                    <th scope="col"><p>Description</p></th> 
+                    <th scope="col"><p>Actions</p></th> 
+                  </tr>
+              </thead>
+              <tbody id="tableBody">
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Get some Coffee</td>
+                    <td>You need coffee as you are a coder</td> 
+                <td><button class="btn btn-sm btn-primary" onclick="showlert()">Delete</button></td> 
+                  </tr>
+			</tr>
+		</tbody>
+
+		</table>
+		
 	</div>
 </div>
 
 
+
 </body>
+<script>
+            function getAndUpdate(){
+                console.log("Updating List...");
+                tit = document.getElementById('title').value;
+                desc = document.getElementById('description').value;
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = [];
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr);
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                update();
+            }
+
+            function update(){
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = []; 
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                } 
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
+                }
+                // Populate the table
+                let tableBody = document.getElementById("tableBody");
+                let str = "";
+                itemJsonArray.forEach((element, index) => {
+                    str += `
+                    <tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${element[0]}</td>
+                    <td>${element[1]}</td> 
+                    <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    </tr>`; 
+                });
+                tableBody.innerHTML = str;
+            }
+            add = document.getElementById("add");
+            add.addEventListener("click", getAndUpdate);
+            update();
+            function deleted(itemIndex){
+                console.log("Delete", itemIndex);
+                itemJsonArrayStr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+                // Delete itemIndex element from the array
+                itemJsonArray.splice(itemIndex, 1);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+                update();
+
+            }
+            function clearStorage(){
+                if (confirm("Do you areally want to clear?")){
+                console.log('Clearing the storage')
+                localStorage.clear();
+                update()
+                }
+            }
+            function showlert() {
+            	alert("are you sure to delete it");
+            }
+        </script>
 </html>
