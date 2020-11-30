@@ -1,0 +1,58 @@
+
+	
+	body{
+		background-image:url(images/preview3.jpg);
+	}
+	p{
+		color: white;
+	}
+   .fdiv{
+	background-color: rgb(0,0,0,0.5);
+	align-content: center;
+	width: 300px;
+	padding: 100px;
+	margin: auto;
+
+	
+   }
+   .fdiv:hover {
+   -webkit-box-shadow: 5px 3px 37px 26px	#FF1493; 
+box-shadow: 5px 3px 37px 26px 	#FF1493;
+   }
+   .read{
+   color: white;
+   
+	margin: 12px;
+	border-radius: 10px;
+   }
+   
+  .read:hover {
+	background-color: #0753A5;
+		margin: 15px;
+		border: none;
+  }
+
+.logos{
+	
+	align-content: center;
+	width: 300px;
+	
+	margin: auto;
+}
+
+.logos h2 {
+	position: absolute;
+
+}
+.logos h2:nth-child(1){
+	
+	-webkit-text-stroke:2px #03a9f4;
+}
+.logos h2:nth-child(2){
+	color: #03a9f4;
+	animation:animate 4s ease-in-out;
+}
+
+button{
+	color: white;
+}
